@@ -62,10 +62,10 @@ public class userInformation extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP2.dout.writeUTF("infor");
-        ClientFTP2 f = new ClientFTP2();
+        ClientTCP2.dout.writeUTF("infor");
+        ClientTCP2 f = new ClientTCP2();
         HttpSession session = request.getSession();
-        ClientFTP2.dout.writeUTF(session.getAttribute("username").toString());
+        ClientTCP2.dout.writeUTF(session.getAttribute("username").toString());
         ObjectInputStream objectInput = new ObjectInputStream(f.soc.getInputStream());
         Admin admin = new Admin();
         try {

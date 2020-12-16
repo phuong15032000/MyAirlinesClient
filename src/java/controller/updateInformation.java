@@ -72,7 +72,10 @@ public class updateInformation extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP2.dout.writeUTF("update");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        ClientTCP2.dout.writeUTF("update");
         Admin admin = new Admin();
         admin.setUsername(request.getParameter("username"));
         admin.setName(request.getParameter("name"));
@@ -83,10 +86,10 @@ public class updateInformation extends HttpServlet {
         admin.setAddress(request.getParameter("address"));
 
         ObjectOutputStream objectOutput;
-        objectOutput = new ObjectOutputStream(ClientFTP2.soc.getOutputStream());
+        objectOutput = new ObjectOutputStream(ClientTCP2.soc.getOutputStream());
         objectOutput.writeObject(admin);
-        
-        if (ClientFTP2.din.readUTF().equals("updateSuc")) {
+
+        if (ClientTCP2.din.readUTF().equals("updateSuc")) {
             response.sendRedirect("./userInformation");
             //request.getRequestDispatcher("/userInformation").forward(request, response);
         }

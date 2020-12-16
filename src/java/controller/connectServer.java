@@ -81,8 +81,8 @@ public class connectServer extends HttpServlet {
         String[] argument = new String[]{Host, port, username, pass};
         String msg = "";
         String msg2="";
-        ClientFTP obj= new ClientFTP();
-        ClientFTP2 obj2 = new ClientFTP2();
+        ClientTCP obj= new ClientTCP();
+        ClientTCP2 obj2 = new ClientTCP2();
         String[] argument2 = new String[]{Host, port2, username, pass};
         try {
             msg = obj.connect(argument);

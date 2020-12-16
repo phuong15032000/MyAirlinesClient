@@ -65,8 +65,8 @@ public class addFlight extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP.dout.writeUTF("getListFLight");
-        ClientFTP f = new ClientFTP();
+        ClientTCP.dout.writeUTF("getListFLight");
+        ClientTCP f = new ClientTCP();
         
         List<Aircraft> aircraftList = new ArrayList<Aircraft>();
         List<FlightRoute> flightRouteList = new ArrayList<FlightRoute>();

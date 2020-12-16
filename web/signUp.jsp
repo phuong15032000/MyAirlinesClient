@@ -1,7 +1,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="mvc"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -38,14 +36,14 @@
         </script>
     </head>
     <body>
-                <header>
+        <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top">
                 <div class="container">
                     <a class="navbar-brand" href="<c:url value="/index"/>"><i class="fas fa-plane-departure"></i></i> PC Airlines</a>
                     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
                     <div class="collapse navbar-collapse" id="collapsibleNavId">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                             <c:choose>
+                            <c:choose>
                                 <c:when test="${empty sessionScope.username}"> 
                                     <li class="nav-item active">
                                         <a class="nav-link" href="<c:url value="/login"/>">Đăng nhập <span class="sr-only">(current)</span></a>
@@ -129,45 +127,45 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <mvc:form action="signup" method="POST" id="fileForm" role="form" modelAttribute="customer">
+                                        <form action="signup" method="POST" id="fileForm" role="form" modelAttribute="customer">
                                             <fieldset><legend class="text-center">Điền thông tin của bạn để đăng ký. <span class="req"></span></legend>
 
                                                 <div class="form-group">
                                                     <label for="phonenumber"><span class="req">* </span> Số điện thoại: </label>
-                                                    <mvc:input required="required" path="phoneNumber" type="text" name="phonenumber" id="phone" class="form-control phone" maxlength="28" onkeyup="validatephone(this);"/> 
+                                                    <input required="required" type="text" name="phonenumber" id="phone" class="form-control phone" maxlength="28" onkeyup="validatephone(this);"/> 
                                                 </div>
 
                                                 <div class="form-group"> 	 
                                                     <label for="firstname"><span class="req">* </span> Tên đầy đủ: </label>
-                                                    <mvc:input path="name" class="form-control" type="text" name="firstname" id = "txt"  required="required" /> 
+                                                    <input class="form-control" type="text" name="fullname" id = "txt"  required="required" /> 
                                                     <div id="errFirst"></div>    
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="phonenumber"><span class="req">* </span> Số CMND: </label>
-                                                    <mvc:input path="identifyNumber" required="required" type="text" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" /> 
+                                                    <input name="identifyNumber" required="required" type="text" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" /> 
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="email"><span class="req">* </span> Địa chỉ Email: </label> 
-                                                    <mvc:input path="email" required="required" class="form-control" type="text" name="email" id = "email"  onchange="email_validate(this.value);" />   
+                                                    <input required="required" class="form-control" type="text" name="email" id = "email"  onchange="email_validate(this.value);" />   
                                                     <div class="status" id="status"></div>
                                                 </div>
                                                 <div class="form-group"> 	 
                                                     <label for="firstname"><span class="req">* </span> Địa Chỉ :  </label>
-                                                    <mvc:input path="address" class="form-control" type="text" name="firstname" id = "txt" required="required" /> 
+                                                    <input class="form-control" type="text" name="address" id = "txt" required="required" /> 
                                                     <div id="errFirst"></div>    
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="username"><span class="req">* </span> Tên đăng nhập  <small>đây sẽ lên tên đăng nhập của bạn sau này</small> <p style="color: red;">${exist}</p></label> 
-                                                        <mvc:input name="usernamee" onchange="checkUsername()" path="username" minlength="6" maxlength="16" class="form-control" type="text" id = "username" placeholder="ít nhất 6 kí tự"  required="required" />  
+                                                    <input name="username" onchange="checkUsername()" path="username" minlength="6" maxlength="16" class="form-control" type="text" id = "username" placeholder="ít nhất 6 kí tự"  required="required" />  
                                                     <div id="errLast"></div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="password"><span class="req">* </span> Mật khẩu: </label>
-                                                    <mvc:password required="required" path="password" class="form-control inputpass" minlength="4" maxlength="16" placeholder="Mật khẩu"  id="pass1"  />
-                                                    
+                                                    <input type="password" required="required" name="password" class="form-control inputpass" minlength="4" maxlength="16" placeholder="Mật khẩu"  id="pass1"  />
+
                                                 </div>
 
                                                 <div class="form-group">
@@ -187,14 +185,14 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <mvc:button class="btn btn-success" type="submit" name="submit_reg">Đăng kí</mvc:button>
-                                                    </div>
-                                                </fieldset>
-                                        </mvc:form><!-- ends register form -->
+                                                    <button class="btn btn-success" type="submit" name="submit_reg">Đăng kí</button>
+                                                </div>
+                                            </fieldset>
+                                            </form><!-- ends register form -->
 
-                                        <script type="text/javascript">
-                                            document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
-                                        </script>
+                                            <script type="text/javascript">
+                                                document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
+                                            </script>
                                     </div><!-- ends col-6 -->
 
 
@@ -293,80 +291,80 @@
         <script  src="<c:url value="/resources/public/assets/js/main.js"/>"></script>
         <script src="<c:url value="https://code.jquery.com/ui/1.8.22/jquery-ui.js"/>"></script>
         <script language="JavaScript">
-                                            function checkPass()
-                                            {
+                                                function checkPass()
+                                                {
 
-                                                var pass1 = document.getElementById('pass1');
-                                                var pass2 = document.getElementById('pass2');
-                                                var message = document.getElementById('confirmMessage');
-                                                //Set the colors we will be using ...
-                                                var goodColor = "#66cc66";
-                                                var badColor = "#ff6666";
-                                                if (pass1.value == pass2.value) {
+                                                    var pass1 = document.getElementById('pass1');
+                                                    var pass2 = document.getElementById('pass2');
+                                                    var message = document.getElementById('confirmMessage');
+                                                    //Set the colors we will be using ...
+                                                    var goodColor = "#66cc66";
+                                                    var badColor = "#ff6666";
+                                                    if (pass1.value == pass2.value) {
 
-                                                    pass2.style.backgroundColor = goodColor;
-                                                    message.style.color = goodColor;
-                                                    message.innerHTML = "Passwords Match"
-                                                } else {
+                                                        pass2.style.backgroundColor = goodColor;
+                                                        message.style.color = goodColor;
+                                                        message.innerHTML = "Passwords Match"
+                                                    } else {
 
-                                                    pass2.style.backgroundColor = badColor;
-                                                    message.style.color = badColor;
-                                                    message.innerHTML = "Passwords Do Not Match!"
+                                                        pass2.style.backgroundColor = badColor;
+                                                        message.style.color = badColor;
+                                                        message.innerHTML = "Passwords Do Not Match!"
+                                                    }
                                                 }
-                                            }
-                                            function validatephone(phone)
-                                            {
-                                                var maintainplus = '';
-                                                var numval = phone.value
-                                                if (numval.charAt(0) == '+')
+                                                function validatephone(phone)
                                                 {
                                                     var maintainplus = '';
+                                                    var numval = phone.value
+                                                    if (numval.charAt(0) == '+')
+                                                    {
+                                                        var maintainplus = '';
+                                                    }
+                                                    curphonevar = numval.replace(/[\\A-Za-z!"£$%^&\,*+_={};:'@#~,.Š\/<>?|`¬\]\[]/g, '');
+                                                    phone.value = maintainplus + curphonevar;
+                                                    var maintainplus = '';
+                                                    phone.focus;
                                                 }
-                                                curphonevar = numval.replace(/[\\A-Za-z!"£$%^&\,*+_={};:'@#~,.Š\/<>?|`¬\]\[]/g, '');
-                                                phone.value = maintainplus + curphonevar;
-                                                var maintainplus = '';
-                                                phone.focus;
-                                            }
 // validates text only
-                                            function Validate(txt) {
-                                                txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
-                                            }
+                                                function Validate(txt) {
+                                                    txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
+                                                }
 // validate email
-                                            function email_validate(email)
-                                            {
-                                                var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
-                                                if (regMail.test(email) == false)
+                                                function email_validate(email)
                                                 {
-                                                    document.getElementById("status").innerHTML = "<span class='warning'>Email address is not valid yet.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("status").innerHTML = "<span class='valid'>Thanks, you have entered a valid Email address!</span>";
+                                                    var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
+                                                    if (regMail.test(email) == false)
+                                                    {
+                                                        document.getElementById("status").innerHTML = "<span class='warning'>Email address is not valid yet.</span>";
+                                                    } else
+                                                    {
+                                                        document.getElementById("status").innerHTML = "<span class='valid'>Thanks, you have entered a valid Email address!</span>";
+                                                    }
                                                 }
-                                            }
 // validate date of birth
-                                            function dob_validate(dob)
-                                            {
-                                                var regDOB = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
-                                                if (regDOB.test(dob) == false)
+                                                function dob_validate(dob)
                                                 {
-                                                    document.getElementById("statusDOB").innerHTML = "<span class='warning'>DOB is only used to verify your age.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("statusDOB").innerHTML = "<span class='valid'>Thanks, you have entered a valid DOB!</span>";
+                                                    var regDOB = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
+                                                    if (regDOB.test(dob) == false)
+                                                    {
+                                                        document.getElementById("statusDOB").innerHTML = "<span class='warning'>DOB is only used to verify your age.</span>";
+                                                    } else
+                                                    {
+                                                        document.getElementById("statusDOB").innerHTML = "<span class='valid'>Thanks, you have entered a valid DOB!</span>";
+                                                    }
                                                 }
-                                            }
 // validate address
-                                            function add_validate(address)
-                                            {
-                                                var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
-                                                if (regAdd.test(address) == false)
+                                                function add_validate(address)
                                                 {
-                                                    document.getElementById("statusAdd").innerHTML = "<span class='warning'>Address is not valid yet.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("statusAdd").innerHTML = "<span class='valid'>Thanks, Address looks valid!</span>";
+                                                    var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
+                                                    if (regAdd.test(address) == false)
+                                                    {
+                                                        document.getElementById("statusAdd").innerHTML = "<span class='warning'>Address is not valid yet.</span>";
+                                                    } else
+                                                    {
+                                                        document.getElementById("statusAdd").innerHTML = "<span class='valid'>Thanks, Address looks valid!</span>";
+                                                    }
                                                 }
-                                            }
         </script>
     </body>
 </html>

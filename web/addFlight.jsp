@@ -1,4 +1,9 @@
 
+<%@page import="model.FlightRoute"%>
+<%@page import="model.Aircraft"%>
+<%@page import="model.Flight"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -60,7 +65,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    
+
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
@@ -265,7 +270,7 @@
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="<c:url value="/userInformation"/>">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Thông tin cá nhân
                                     </a>
@@ -299,9 +304,12 @@
                                     <td>Chọn máy bay </td>
                                     <td>
                                         <select name="aircraft">
-                                            <c:forEach items="${aircraftList}" var="tempAircraft"> 
-                                                <option value="${tempAircraft.getAircraftId()}">${tempAircraft.getAircraftName()}</option>
-                                            </c:forEach>
+                                            <%
+                                                List<Aircraft> aircraftList = (List<Aircraft>) request.getAttribute("aircraftList");
+                                                for (Aircraft aircraft : aircraftList) {
+                                            %>
+                                            <option value= <%=aircraft.getAircraftId()%> > <%=aircraft.getAircraftName()%></option>
+                                            <%}%>
                                         </select>
                                     </td>
                                 </tr>
@@ -309,9 +317,12 @@
                                     <td>Chọn đường bay: </td>
                                     <td>
                                         <select name="flightRoute">
-                                            <c:forEach items="${flightRouteList}" var="tempFlightRoute"> 
-                                                <option value="${tempFlightRoute.getFlightRouteId()}">${tempFlightRoute.getDeparturePlace()}-${tempFlightRoute.getArrivalPlace()}</option>
-                                            </c:forEach>
+                                            <%
+                                                List<FlightRoute> flightRouteList = (List<FlightRoute>) request.getAttribute("flightRouteList");
+                                                for (FlightRoute flightRoute : flightRouteList) {
+                                            %>
+                                            <option value=<%=flightRoute.getFlightRouteId()%>><%=flightRoute.getDeparturePlace()%>-<%=flightRoute.getArrivalPlace()%></option>
+                                            <%}%>
                                         </select>
                                     </td>
                                 </tr>
@@ -333,7 +344,7 @@
                             <button>Thêm chuyến bay</button>
                         </form>
                         <br>
-                        
+
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th>Nơi Đến</th>
@@ -344,19 +355,22 @@
                                 <th>Số ghế còn trống</th>
                                 <th>Tổng số ghế</th>
                             </tr>
-                            <c:forEach var="flight" items="${flightList}">
-                                <tr>
-                                    <td>${flight.departurePlace}</td>
-                                    <td>${flight.arrivalPlace}</td>
-                                    <td>${flight.departureTime}</td>
-                                    <td>${flight.arrivalTime}</td>
-                                    <td>${flight.orderedSeats}</td>
-                                    <td>${flight.availableSeats}</td>
-                                    <td>${flight.totalSeats}</td>
-                                </tr>
-                            </c:forEach>
+                            <%
+                                List<Flight> flightList = (List<Flight>) request.getAttribute("flightList");
+                                for (Flight flight : flightList) {
+                            %>
+                            <tr>
+                                <td><%=flight.getDeparturePlace()%></td>
+                                <td><%=flight.getArrivalPlace()%></td>
+                                <td><%=flight.getDepartureTime()%></td>
+                                <td><%=flight.getArrivalTime()%></td>
+                                <td><%=flight.getOrderedSeats()%></td>
+                                <td><%=flight.getAvailableSeats()%></td>
+                                <td><%=flight.getTotalSeats()%></td>
+                            </tr>
+                            <%}%>
                         </table>
-                            
+
                     </div>
                     <!-- /.container-fluid -->
 
@@ -398,9 +412,8 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <!--<a class="btn btn-primary" href="login.html">Logout</a> -->
-                        <form action="<c:url value="/j_spring_security_logout" />" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="submit" class="btn btn-warning" value="Đăng xuất" />
+                        <form action="<c:url value="logout" />" method="post">
+                            <input type="submit" class="btn btn-warning" value="Đăng xuât" />
                         </form>
                     </div>
                 </div>

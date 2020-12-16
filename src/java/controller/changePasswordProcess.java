@@ -5,28 +5,19 @@
  */
 package controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static controller.ClientTCP.datadin;
-import static controller.ClientTCP.dataout;
-import static controller.ClientTCP.datasoc;
-import static controller.ClientTCP.din;
-import static controller.ClientTCP.dout;
-import java.io.ObjectOutputStream;
-import model.Airport;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author DELL
  */
-public class addAirportProcess extends HttpServlet {
+public class changePasswordProcess extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +36,10 @@ public class addAirportProcess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addAirportProcess</title>");
+            out.println("<title>Servlet changePasswordProcess</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addAirportProcess at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet changePasswordProcess at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,27 +57,7 @@ public class addAirportProcess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        
-        ClientTCP.dout.writeUTF("addAirport");
-        
-        String cityName = request.getParameter("cityName");
-        String airportName = request.getParameter("airportName");
-        Airport a = new Airport();
-        a.setAirportName(airportName);
-        a.setCityName(cityName);
-        ObjectOutputStream objectOutput;
-            objectOutput = new ObjectOutputStream(ClientTCP.soc.getOutputStream());
-            objectOutput.writeObject(a);
-//        ClientFTP.dout.writeUTF(cityName);
-//        ClientFTP.dout.writeUTF(airportName);
-
-        if (ClientTCP.din.readUTF().equals("addAirportSuc")) {
-            request.setAttribute("result", "them san bay thanh cong");
-            request.getRequestDispatcher("/addAirport").forward(request, response);
-        } else if (ClientTCP.datadin.readUTF().equals("addAirportFail")){
-            request.getRequestDispatcher("addAirportFail.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -100,7 +71,28 @@ public class addAirportProcess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String oldPass = request.getParameter("oldpassword");
+        
+        ClientTCP2.dout.writeUTF("checkPass");
+        
+        ClientTCP2.dout.writeUTF(session.getAttribute("username").toString());
+        ClientTCP2.dout.writeUTF(oldPass);
+        
+        if(ClientTCP2.din.readUTF().equals("success")){
+            String newPass = request.getParameter("newPassword");
+             ClientTCP2.dout.writeUTF("changePass");
+            ClientTCP2.dout.writeUTF(session.getAttribute("username").toString());
+           
+            ClientTCP2.dout.writeUTF(newPass);
+            if(ClientTCP2.din.readUTF().equals("success")){
+                request.setAttribute("ms2", "Đổi mật khẩu thành công");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+        }else {
+            request.setAttribute("ms", "Sai mật khẩu cũ");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        }
     }
 
     /**

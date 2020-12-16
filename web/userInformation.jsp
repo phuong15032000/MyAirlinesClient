@@ -40,80 +40,80 @@
         <script  src="<c:url value="/resources/public/assets/js/main.js"/>"></script>
         <script src="<c:url value="https://code.jquery.com/ui/1.8.22/jquery-ui.js"/>"></script>
         <script language="JavaScript">
-                                            function checkPass()
-                                            {
+            function checkPass()
+            {
 
-                                                var pass1 = document.getElementById('pass1');
-                                                var pass2 = document.getElementById('pass2');
-                                                var message = document.getElementById('confirmMessage');
-                                                //Set the colors we will be using ...
-                                                var goodColor = "#66cc66";
-                                                var badColor = "#ff6666";
-                                                if (pass1.value == pass2.value) {
+                var pass1 = document.getElementById('pass1');
+                var pass2 = document.getElementById('pass2');
+                var message = document.getElementById('confirmMessage');
+                //Set the colors we will be using ...
+                var goodColor = "#66cc66";
+                var badColor = "#ff6666";
+                if (pass1.value == pass2.value) {
 
-                                                    pass2.style.backgroundColor = goodColor;
-                                                    message.style.color = goodColor;
-                                                    message.innerHTML = "Passwords Match"
-                                                } else {
+                    pass2.style.backgroundColor = goodColor;
+                    message.style.color = goodColor;
+                    message.innerHTML = "Passwords Match"
+                } else {
 
-                                                    pass2.style.backgroundColor = badColor;
-                                                    message.style.color = badColor;
-                                                    message.innerHTML = "Passwords Do Not Match!"
-                                                }
-                                            }
-                                            function validatephone(phone)
-                                            {
-                                                var maintainplus = '';
-                                                var numval = phone.value
-                                                if (numval.charAt(0) == '+')
-                                                {
-                                                    var maintainplus = '';
-                                                }
-                                                curphonevar = numval.replace(/[\\A-Za-z!"£$%^&\,*+_={};:'@#~,.Š\/<>?|`¬\]\[]/g, '');
-                                                phone.value = maintainplus + curphonevar;
-                                                var maintainplus = '';
-                                                phone.focus;
-                                            }
+                    pass2.style.backgroundColor = badColor;
+                    message.style.color = badColor;
+                    message.innerHTML = "Passwords Do Not Match!"
+                }
+            }
+            function validatephone(phone)
+            {
+                var maintainplus = '';
+                var numval = phone.value
+                if (numval.charAt(0) == '+')
+                {
+                    var maintainplus = '';
+                }
+                curphonevar = numval.replace(/[\\A-Za-z!"£$%^&\,*+_={};:'@#~,.Š\/<>?|`¬\]\[]/g, '');
+                phone.value = maintainplus + curphonevar;
+                var maintainplus = '';
+                phone.focus;
+            }
 // validates text only
-                                            function Validate(txt) {
-                                                txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
-                                            }
+            function Validate(txt) {
+                txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
+            }
 // validate email
-                                            function email_validate(email)
-                                            {
-                                                var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
-                                                if (regMail.test(email) == false)
-                                                {
-                                                    document.getElementById("status").innerHTML = "<span class='warning'>Email address is not valid yet.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("status").innerHTML = "<span class='valid'>Thanks, you have entered a valid Email address!</span>";
-                                                }
-                                            }
+            function email_validate(email)
+            {
+                var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
+                if (regMail.test(email) == false)
+                {
+                    document.getElementById("status").innerHTML = "<span class='warning'>Email address is not valid yet.</span>";
+                } else
+                {
+                    document.getElementById("status").innerHTML = "<span class='valid'>Thanks, you have entered a valid Email address!</span>";
+                }
+            }
 // validate date of birth
-                                            function dob_validate(dob)
-                                            {
-                                                var regDOB = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
-                                                if (regDOB.test(dob) == false)
-                                                {
-                                                    document.getElementById("statusDOB").innerHTML = "<span class='warning'>DOB is only used to verify your age.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("statusDOB").innerHTML = "<span class='valid'>Thanks, you have entered a valid DOB!</span>";
-                                                }
-                                            }
+            function dob_validate(dob)
+            {
+                var regDOB = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
+                if (regDOB.test(dob) == false)
+                {
+                    document.getElementById("statusDOB").innerHTML = "<span class='warning'>DOB is only used to verify your age.</span>";
+                } else
+                {
+                    document.getElementById("statusDOB").innerHTML = "<span class='valid'>Thanks, you have entered a valid DOB!</span>";
+                }
+            }
 // validate address
-                                            function add_validate(address)
-                                            {
-                                                var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
-                                                if (regAdd.test(address) == false)
-                                                {
-                                                    document.getElementById("statusAdd").innerHTML = "<span class='warning'>Address is not valid yet.</span>";
-                                                } else
-                                                {
-                                                    document.getElementById("statusAdd").innerHTML = "<span class='valid'>Thanks, Address looks valid!</span>";
-                                                }
-                                            }
+            function add_validate(address)
+            {
+                var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
+                if (regAdd.test(address) == false)
+                {
+                    document.getElementById("statusAdd").innerHTML = "<span class='warning'>Address is not valid yet.</span>";
+                } else
+                {
+                    document.getElementById("statusAdd").innerHTML = "<span class='valid'>Thanks, Address looks valid!</span>";
+                }
+            }
         </script>
     </head>
     <body>
@@ -190,9 +190,8 @@
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ bỏ</button>
                             <!--<a class="btn btn-primary" href="login.html">Logout</a> -->
-                            <form action="<c:url value="/j_spring_security_logout" />" method="post">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                <input type="submit" class="btn btn-warning" value="Đăng xuất" />
+                            <form action="<c:url value="logout" />" method="post">
+                                <input type="submit" class="btn btn-warning" value="Đăng xuât" />
                             </form>
                         </div>
                     </div>
@@ -209,39 +208,39 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <%
-                                        Admin admin = (Admin)request.getAttribute("admin");
+                                            Admin admin = (Admin) request.getAttribute("admin");
                                         %>
                                         <form action="updateInformation" method="POST" id="fileForm" role="form" modelAttribute="customer">
                                             <fieldset><legend class="text-center">Cập nhật thông tin </legend>
                                                 <div class="form-group">
                                                     <label for="username"><span class="req">* </span> Tên đăng nhập <p style="color: red;">${exist}</p></label> 
-                                                        <input readonly="true" value="${admin.getUsername()}" name="username" onchange="checkUsername()"  minlength="6" maxlength="16" class="form-control" type="text" id = "username" placeholder="minimum 6 letters"  required="required" />  
+                                                    <input readonly="true" value="<%=admin.getUsername()%>" name="username" onchange="checkUsername()"  minlength="6" maxlength="16" class="form-control" type="text" id = "username" placeholder="minimum 6 letters"  required="required" />  
                                                     <div id="errLast"></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phonenumber"><span class="req">* </span> SĐT: </label>
-                                                    <input value="${admin.getPhoneNumber()}" required="required"  type="text" name="phonenumber" id="phone" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" placeholder="not used for marketing"/> 
+                                                    <input value="<%=admin.getPhoneNumber()%>" required="required"  type="text" name="phonenumber" id="phone" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" placeholder="not used for marketing"/> 
                                                 </div>
 
                                                 <div class="form-group"> 	 
                                                     <label for="firstname"><span class="req">* </span> Tên đầy đủ: </label>
-                                                    <input value="${admin.getName()}" class="form-control" type="text" name="name" id = "txt"  required="required" /> 
+                                                    <input value="<%=admin.getName()%>" class="form-control" type="text" name="name" id = "txt"  required="required" /> 
                                                     <div id="errFirst"></div>    
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="phonenumber"><span class="req">* </span> Số CMND: </label>
-                                                    <input value="${admin.getIdentifyNumber()}" name ="identifyNumber"required="required" type="text" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" /> 
+                                                    <input value="<%=admin.getIdentifyNumber()%>" name ="identifyNumber"required="required" type="text" class="form-control phone" maxlength="28" onkeyup="validatephone(this);" /> 
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="email"><span class="req">* </span> Địa chỉ Email: </label> 
-                                                    <input value="${admin.getEmail()}" name="email" required="required" class="form-control" type="text" id = "email"  onchange="email_validate(this.value);" />   
+                                                    <input value="<%=admin.getEmail()%>" name="email" required="required" class="form-control" type="text" id = "email"  onchange="email_validate(this.value);" />   
                                                     <div class="status" id="status"></div>
                                                 </div>
                                                 <div class="form-group"> 	 
                                                     <label for="firstname"><span class="req">* </span> Địa chỉ liên hệ :  </label>
-                                                    <input value="${admin.getAddress()}" name="address" class="form-control" type="text" id = "txt" required="required" /> 
+                                                    <input value="<%=admin.getAddress()%>" name="address" class="form-control" type="text" id = "txt" required="required" /> 
                                                     <div id="errFirst"></div>    
                                                 </div>
 
@@ -356,6 +355,6 @@
             </div>
 
         </footer>
-        
+
     </body>
 </html>

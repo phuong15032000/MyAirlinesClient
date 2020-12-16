@@ -18,7 +18,7 @@ import java.net.*;
 import java.io.*;
 
 
-public class ClientFTP2
+public class ClientTCP2
 {
     
     BufferedReader br=new BufferedReader(new InputStreamReader(System.in));

@@ -1,4 +1,7 @@
 
+<%@page import="java.util.List"%>
+<%@page import="model.Airport"%>
+<%@page import="model.Airport"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -264,7 +267,7 @@
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="<c:url value="/userInformation"/>">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Thông tin cá nhân
                                     </a>
@@ -298,9 +301,12 @@
                                     <td>Chọn nơi đi </td>
                                     <td>
                                         <select name="departurePlace">
-                                            <c:forEach items="${airportList}" var="tempAirport"> 
-                                                <option value="${tempAirport.getAirportId()}">${tempAirport.getCityName()}</option>
-                                            </c:forEach>
+                                            <%
+                                                List<Airport> airportList = (List<Airport>) request.getAttribute("airportList");
+                                                for (Airport a : airportList) {
+                                            %>
+                                            <option value=<%=a.getAirportId()%>><%=a.getCityName()%></option>
+                                            <%}%>
                                         </select>
                                     </td>
                                 </tr>
@@ -308,9 +314,11 @@
                                     <td>Chọn nơi đến</td>
                                     <td>
                                         <select name="arrivalPlace">
-                                            <c:forEach items="${airportList}" var="tempAirport"> 
-                                                <option value="${tempAirport.getAirportId()}">${tempAirport.getCityName()}</option>
-                                            </c:forEach>
+                                            <%
+                                                for (Airport b : airportList) {
+                                            %>
+                                            <option value=<%=b.getAirportId()%>><%=b.getCityName()%></option>
+                                            <%}%>
                                         </select>
                                     </td>
                                 </tr>
@@ -335,7 +343,7 @@
                                 <tr>
                                     <td>${route.departurePlace}</td>
                                     <td>${route.arrivalPlace}</td>
-                                    <td><fmt:formatNumber currencySymbol="VNĐ" minFractionDigits="0" value = "${route.standardPrice}" type = "currency" /></td>
+                                    <td><fmt:formatNumber currencySymbol="VNĐ " minFractionDigits="0" value = "${route.standardPrice}" type = "currency" /></td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -382,9 +390,8 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <!--<a class="btn btn-primary" href="login.html">Logout</a> -->
-                        <form action="<c:url value="/j_spring_security_logout" />" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="submit" class="btn btn-warning" value="Đăng xuất" />
+                        <form action="<c:url value="logout" />" method="post">
+                            <input type="submit" class="btn btn-warning" value="Đăng xuât" />
                         </form>
                     </div>
                 </div>

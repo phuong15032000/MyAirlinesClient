@@ -5,28 +5,21 @@
  */
 package controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static controller.ClientTCP.datadin;
-import static controller.ClientTCP.dataout;
-import static controller.ClientTCP.datasoc;
-import static controller.ClientTCP.din;
-import static controller.ClientTCP.dout;
-import java.io.ObjectOutputStream;
-import model.Airport;
+import javax.servlet.http.HttpSession;
+import model.Admin;
+
 /**
  *
  * @author DELL
  */
-public class addAirportProcess extends HttpServlet {
+public class signup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +38,10 @@ public class addAirportProcess extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addAirportProcess</title>");
+            out.println("<title>Servlet signup</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addAirportProcess at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet signup at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,27 +59,7 @@ public class addAirportProcess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        
-        ClientTCP.dout.writeUTF("addAirport");
-        
-        String cityName = request.getParameter("cityName");
-        String airportName = request.getParameter("airportName");
-        Airport a = new Airport();
-        a.setAirportName(airportName);
-        a.setCityName(cityName);
-        ObjectOutputStream objectOutput;
-            objectOutput = new ObjectOutputStream(ClientTCP.soc.getOutputStream());
-            objectOutput.writeObject(a);
-//        ClientFTP.dout.writeUTF(cityName);
-//        ClientFTP.dout.writeUTF(airportName);
-
-        if (ClientTCP.din.readUTF().equals("addAirportSuc")) {
-            request.setAttribute("result", "them san bay thanh cong");
-            request.getRequestDispatcher("/addAirport").forward(request, response);
-        } else if (ClientTCP.datadin.readUTF().equals("addAirportFail")){
-            request.getRequestDispatcher("addAirportFail.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -100,7 +73,28 @@ public class addAirportProcess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ClientTCP2.dout.writeUTF("signup");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        Admin admin = new Admin();
+        admin.setUsername(request.getParameter("username"));
+        admin.setName(request.getParameter("fullname"));
+        admin.setPhoneNumber(request.getParameter("phonenumber"));
+        admin.setIdentifyNumber(request.getParameter("identifyNumber"));
+        admin.setEmail(request.getParameter("email"));
+        admin.setPassword(request.getParameter("password"));
+        admin.setAddress(request.getParameter("address"));
+
+        ObjectOutputStream objectOutput;
+        objectOutput = new ObjectOutputStream(ClientTCP2.soc.getOutputStream());
+        objectOutput.writeObject(admin);
+        
+        if(ClientTCP2.din.readUTF().equals("singupSuc")){
+            HttpSession session = request.getSession();
+            session.setAttribute("username", admin.getUsername());
+            response.sendRedirect("./index");
+        }
     }
 
     /**

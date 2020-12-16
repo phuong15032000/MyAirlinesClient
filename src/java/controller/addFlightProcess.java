@@ -60,7 +60,7 @@ public class addFlightProcess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP.dout.writeUTF("addFlight");
+        ClientTCP.dout.writeUTF("addFlight");
         
         addFlightFunc func = new addFlightFunc();
         Aircraft ac = func.getAircraftById(request.getParameter("aircraft"));
@@ -87,13 +87,13 @@ public class addFlightProcess extends HttpServlet {
         flight.setOrderedSeats(0);
 
         ObjectOutputStream objectOutput;
-        objectOutput = new ObjectOutputStream(ClientFTP.soc.getOutputStream());
+        objectOutput = new ObjectOutputStream(ClientTCP.soc.getOutputStream());
         objectOutput.writeObject(flight);
 
-        if (ClientFTP.din.readUTF().equals("addFlightSuc")) {
+        if (ClientTCP.din.readUTF().equals("addFlightSuc")) {
             request.setAttribute("result", "them chuyen san bay thanh cong");
             request.getRequestDispatcher("/addFlight").forward(request, response);
-        } else if (ClientFTP.datadin.readUTF().equals("addFlightFail")) {
+        } else if (ClientTCP.datadin.readUTF().equals("addFlightFail")) {
             request.setAttribute("result", "them chuyen bay khong thanh cong");
             request.getRequestDispatcher("/addFlight").forward(request, response);
         } else {

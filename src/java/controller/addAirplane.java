@@ -63,8 +63,8 @@ public class addAirplane extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP.dout.writeUTF("getListAircraft");
-        ClientFTP f = new ClientFTP();
+        ClientTCP.dout.writeUTF("getListAircraft");
+        ClientTCP f = new ClientTCP();
         List<Aircraft> aircraftList = new ArrayList<Aircraft>();
         List<Airbrand> airbrandList = new ArrayList<Airbrand>();
         ObjectInputStream objectInput = new ObjectInputStream(f.soc.getInputStream());

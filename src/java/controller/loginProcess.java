@@ -71,16 +71,16 @@ public class loginProcess extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP2.dout.writeUTF("login");
+        ClientTCP2.dout.writeUTF("login");
         
         HttpSession session = request.getSession();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        ClientFTP2.dout.writeUTF(username);
-        ClientFTP2.dout.writeUTF(password);
+        ClientTCP2.dout.writeUTF(username);
+        ClientTCP2.dout.writeUTF(password);
         
-        if(ClientFTP2.din.readUTF().equals("success")){
+        if(ClientTCP2.din.readUTF().equals("success")){
             response.sendRedirect("./index");
             session.setAttribute("username", username);
             //request.getRequestDispatcher("/index").forward(request, response);

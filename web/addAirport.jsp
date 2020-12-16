@@ -1,4 +1,7 @@
 
+<%@page import="java.util.List"%>
+<%@page import="model.Airport"%>
+<%@page import="model.Airport"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -312,19 +315,21 @@
                                 <button>Thêm Sân Bay</button>
                             </form>
                             <br>
-                            
+
                             <table class="table table-striped table-bordered">
                                 <tr>
                                     <th>Tên thành phố</th>
                                     <th>Tên sân bay</th>
                                 </tr>
-                                
-                                <c:forEach var="airport" items="${airportList}">
-                                    <tr>
-                                        <td>${airport.cityName}</td>
-                                        <td>${airport.airportName}</td>
-                                    </tr>
-                                </c:forEach>
+                                <%
+                                    List<Airport> airportList = (List<Airport>) request.getAttribute("airportList");
+                                    for (Airport a : airportList) {
+                                %>
+                                <tr>
+                                    <td><%=a.getCityName()%></td>
+                                    <td><%=a.getAirportName()%></td>
+                                </tr>
+                                <%}%>
                             </table>
                         </div>
                         <br>
@@ -372,9 +377,8 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <!--<a class="btn btn-primary" href="login.html">Logout</a> -->
-                        <form action="<c:url value="/j_spring_security_logout" />" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="submit" class="btn btn-warning" value="Đăng xuất" />
+                        <form action="<c:url value="logout" />" method="post">
+                            <input type="submit" class="btn btn-warning" value="Đăng xuât" />
                         </form>
                     </div>
                 </div>

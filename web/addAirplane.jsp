@@ -1,4 +1,5 @@
 
+<%@page import="model.Aircraft"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Airbrand"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -251,7 +252,7 @@
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="<c:url value="/userInformation"/>">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Thông tin cá nhân
                                     </a>
@@ -291,11 +292,15 @@
                                     <td>Chọn hãng bay </td>
                                     <td>
                                         <select name="airlineBrandId">
-                                            <c:forEach items="${airbrandList}" var="tempAirlinebrand"> 
-                                                <option value="${tempAirlinebrand.airbrandId}">${tempAirlinebrand.airbrandName}</option>
-                                            </c:forEach>
+                                            <%
+                                                List<Airbrand> airbrandList = (List<Airbrand>) request.getAttribute("airbrandList");
+                                                for (Airbrand a : airbrandList) {
+                                            %>
+                                            <option value=<%=a.getAirbrandId()%>> <%=a.getAirbrandName()%></option>
+
+                                            <%}%>
                                         </select>
-                                        
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -321,14 +326,17 @@
                                 <th>Mẫu máy bay</th>
                                 <th>Số chỗ ngồi</th>
                             </tr>
-                            <c:forEach var="aircraft" items="${aircraftList}">
+                            <%
+                                List<Aircraft> aircraftList = (List<Aircraft>) request.getAttribute("aircraftList");
+                                for (Aircraft a : aircraftList) {
+                            %>
                                 <tr>
-                                    <td>${aircraft.aircraftName}</td>
-                                    <td>${aircraft.airbrand}</td>
-                                    <td>${aircraft.model}</td>
-                                    <td>${aircraft.seatNumber}</td>
+                                    <td><%=a.getAircraftName()%></td>
+                                    <td><%=a.getAirbrand()%></td>
+                                    <td><%=a.getModel()%></td>
+                                    <td><%=a.getSeatNumber()%></td>
                                 </tr>
-                            </c:forEach>
+                            <%}%>
                         </table>
                     </div>
                     <!-- /.container-fluid -->
@@ -371,9 +379,8 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <!--<a class="btn btn-primary" href="login.html">Logout</a> -->
-                        <form action="<c:url value="/j_spring_security_logout" />" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="submit" class="btn btn-warning" value="Đăng xuất" />
+                        <form action="<c:url value="logout" />" method="post">
+                            <input type="submit" class="btn btn-warning" value="Đăng xuât" />
                         </form>
                     </div>
                 </div>

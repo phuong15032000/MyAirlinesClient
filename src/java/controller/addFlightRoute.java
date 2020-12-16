@@ -63,8 +63,8 @@ public class addFlightRoute extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP.dout.writeUTF("getListFlightRoute");
-        ClientFTP f = new ClientFTP();
+        ClientTCP.dout.writeUTF("getListFlightRoute");
+        ClientTCP f = new ClientTCP();
         List<FlightRoute> flightRouteList = new ArrayList<FlightRoute>();
         ObjectInputStream objectInput = new ObjectInputStream(f.soc.getInputStream());
         
@@ -78,7 +78,6 @@ public class addFlightRoute extends HttpServlet {
             object2 = objectInput.readObject();
             airportList = (List<Airport>) object2;
             
-            request.setAttribute("result", "load dc list rui");
             request.setAttribute("flightRouteList", flightRouteList);
             
             request.setAttribute("airportList", airportList);

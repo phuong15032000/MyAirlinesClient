@@ -58,7 +58,7 @@ public class addFlightRouteProcess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ClientFTP.dout.writeUTF("addFlightRoute");
+        ClientTCP.dout.writeUTF("addFlightRoute");
 
         String departurePlace = request.getParameter("departurePlace");
         String arrivalPlace = request.getParameter("arrivalPlace");
@@ -70,13 +70,13 @@ public class addFlightRouteProcess extends HttpServlet {
 //       ClientFTP.dout.writeUTF(fr.getArrivalPlace());
 //       ClientFTP.dout.writeInt(fr.getStandardPrice());
         ObjectOutputStream objectOutput;
-        objectOutput = new ObjectOutputStream(ClientFTP.soc.getOutputStream());
+        objectOutput = new ObjectOutputStream(ClientTCP.soc.getOutputStream());
         objectOutput.writeObject(fr);
         
-        if (ClientFTP.din.readUTF().equals("addFlightRouteSuc")) {
+        if (ClientTCP.din.readUTF().equals("addFlightRouteSuc")) {
             request.setAttribute("result", "them duong bay thanh cong");
             request.getRequestDispatcher("/addFlightRoute").forward(request, response);
-        } else if (ClientFTP.datadin.readUTF().equals("addFlightRouteFail")) {
+        } else if (ClientTCP.datadin.readUTF().equals("addFlightRouteFail")) {
             request.setAttribute("result", "them duong bay khong thanh cong");
             request.getRequestDispatcher("/addFlightRoute").forward(request, response);
         } else {

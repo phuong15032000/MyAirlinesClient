@@ -5,9 +5,9 @@
  */
 package controller;
 
-import static controller.ClientFTP.datadin;
-import static controller.ClientFTP.dataout;
-import static controller.ClientFTP.datasoc;
+import static controller.ClientTCP.datadin;
+import static controller.ClientTCP.dataout;
+import static controller.ClientTCP.datasoc;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -69,8 +69,8 @@ public class addAirport extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ClientFTP.dout.writeUTF("getListAirport");
-        ClientFTP f = new ClientFTP();
+        ClientTCP.dout.writeUTF("getListAirport");
+        ClientTCP f = new ClientTCP();
         List<Airport> airportList = new ArrayList<Airport>();
         ObjectInputStream objectInput = new ObjectInputStream(f.soc.getInputStream());
 
@@ -78,7 +78,6 @@ public class addAirport extends HttpServlet {
             Object object;
             object = objectInput.readObject();
             airportList = (List<Airport>) object;
-            request.setAttribute("result", "load dc list rui");
             request.setAttribute("airportList", airportList);
             request.getRequestDispatcher("addAirport.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {

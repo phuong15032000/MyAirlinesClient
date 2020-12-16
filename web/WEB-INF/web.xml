@@ -68,6 +68,18 @@
         <servlet-name>changePassword</servlet-name>
         <servlet-class>controller.changePassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changePasswordProcess</servlet-name>
+        <servlet-class>controller.changePasswordProcess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>signupPage</servlet-name>
+        <servlet-class>controller.signupPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>controller.signup</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addAirport</servlet-name>
         <url-pattern>/addAirport</url-pattern>
@@ -135,6 +147,18 @@
     <servlet-mapping>
         <servlet-name>changePassword</servlet-name>
         <url-pattern>/changePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePasswordProcess</servlet-name>
+        <url-pattern>/changePasswordProcess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signupPage</servlet-name>
+        <url-pattern>/signupPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
